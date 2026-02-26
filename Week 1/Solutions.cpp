@@ -1,14 +1,12 @@
 //1
 char* concatLowerUpper(const char* first, const char* second) {
     size_t resultLength = 0;
-
-   
+    
     for (size_t i = 0; first[i] != '\0'; i++) {
         if (first[i] >= 'a' && first[i] <= 'z') {
             resultLength++;
         }
     }
-
     
     for (size_t i = 0; second[i] != '\0'; i++) {
         if (second[i] >= 'A' && second[i] <= 'Z') {
@@ -16,25 +14,20 @@ char* concatLowerUpper(const char* first, const char* second) {
         }
     }
 
-  
     char* result = new char[resultLength + 1];
-
     size_t index = 0;
 
-   
     for (size_t i = 0; first[i] != '\0'; i++) {
         if (first[i] >= 'a' && first[i] <= 'z') {
             result[index++] = first[i];
         }
     }
 
-    
     for (size_t i = 0; second[i] != '\0'; i++) {
         if (second[i] >= 'A' && second[i] <= 'Z') {
             result[index++] = second[i];
         }
     }
-
     result[index] = '\0';
     return result;
 }
@@ -43,16 +36,13 @@ char* concatLowerUpper(const char* first, const char* second) {
 #include <iostream>
 #include <cstring>
 
-
 bool isSeparator(char c, char separator) {
     return c == separator;
 }
 
-
 int getWordLength(const char* text, int startIndex, char separator) {
     int length = 0;
-    while (text[startIndex + length] != '\0' &&
-           !isSeparator(text[startIndex + length], separator)) {
+    while (text[startIndex + length] != '\0' && !isSeparator(text[startIndex + length], separator)) {
         length++;
     }
     return length;
@@ -78,40 +68,31 @@ char** split(const char* text, char separator) {
         }
     }
 
-    
     char** result = new char*[partsCount + 1];
     result[partsCount] = nullptr; 
-
-    
     int index = 0;       
     int i = 0;      
-
+    
     while (text[i] != '\0') {
         int wordLength = getWordLength(text, i, separator);
-
         result[index] = copyWord(text, i, wordLength);
         index++;
-
         i += wordLength;
-
         if (text[i] == separator) {
             i++; 
         }
     }
-
     return result;
 }
 
 int main() {
     const char* text = "C++,Java,Python,Go";
     char separator = ',';
-
     char** parts = split(text, separator);
   
     for (int i = 0; parts[i] != nullptr; i++) {
       std::cout << "Part " << i << ": " << parts[i] << std::endl;
     }
-
     for (int i = 0; parts[i] != nullptr; i++) {
       delete[] parts[i];
     }
@@ -175,9 +156,6 @@ int main() {
     return 0;
 }
 
-
-
------------------------------------------
 //4
 
 #include <iostream>
@@ -194,7 +172,6 @@ return a - b;
 int mul(int a, int b) {
  return a * b;
 }
-
 
 int executeOperation(int index, int a, int b, int (**ops)(int,int), int opsCount) {
     if (index < 0 || index >= opsCount) {
