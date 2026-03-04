@@ -132,7 +132,7 @@ int main()
 
 - Четене от файл
 
-  ```c++
+```c++
 int main()
 {
     std::ifstream file("myFile.txt");
