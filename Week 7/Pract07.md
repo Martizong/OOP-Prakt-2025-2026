@@ -91,22 +91,6 @@ int main()
 ```
 Кодът се компилира успешно и функциите имат правилно поведение.
 
-## Как работят дефинираните от компилатора функции?
-
-Всяка една от тези функции извиква 'рекурсивно' същите функции върху член-данните.
-
-Пример за конструктора по подразбиране:
-
-<img width="312" height="137" alt="image" src="https://github.com/user-attachments/assets/34ca8a63-63f5-4dfd-b64c-70e91006830f" />
-
-Пример за деструктора:
-
-<img width="319" height="137" alt="image" src="https://github.com/user-attachments/assets/a788a46f-96a6-4c62-96f8-3bca72435689" />
-
-Пример за копиращия конструктор:
-
-<img width="357" height="236" alt="image" src="https://github.com/user-attachments/assets/bf897be9-39b9-4bbf-afa2-45201dc09009" />
-
 ## Проблем при функциите, генерирани от компилатора:
 
 Да разгледаме следния код:
@@ -139,6 +123,48 @@ int main()
 Това е shallow copy. В p2 са се копирали стойностите на p1, което довежда до споделяне на една и съща динамична памет. В тази ситуация ще трябва да се имплементират експлицитно копиращия конструктор, оператора за присвояване и деструктора, защото генерираните от компилатора не биха работили правилно.
 
 Правилното поведение на копиращия конструктор е следното:
+
+<img width="638" height="316" alt="image" src="https://github.com/user-attachments/assets/d83e5a2c-8af3-41b1-8d1d-0b5af1375670" />
+
+Собствена имплементация на функциите за копиране и деструктора:
+
+```c++
+void Person::freeDynamic() {
+    delete[] name;
+    name = nullptr;
+}
+
+void Person::copyDynamic(const Person& other) {
+    if (!other.name) {
+        name = new char[1];
+        name[0] = '\0';
+        return;
+    }
+
+    name = new char[std::strlen(other.name) + 1];
+    std::strcpy(name, other.name);
+}
+
+
+Person::Person(const Person& other) {
+    copyDynamic(other);
+    age = other.age;
+}
+
+Person& Person::operator=(const Person& other) {
+    if (this != &other) {
+        freeDynamic();
+        copyDynamic(other);
+        age = other.age;
+    }
+    return *this;
+}
+
+Person::~Person() {
+    freeDynamic();
+}
+```
+
 ## Задачи
 
 
