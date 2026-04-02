@@ -3,8 +3,8 @@
 
 class Person {
 private:
-    char* name;
-    int age;
+    char* name = nullptr;
+    int age = 0;
 
     void freeDynamic();
     void copyDynamic(const Person& other);
