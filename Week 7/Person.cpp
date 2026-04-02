@@ -4,6 +4,7 @@
 #pragma warning(disable:4996)
 
 void Person::freeDynamic() {
+    if(!name) return;
     delete[] name;
     name = nullptr;
 }
@@ -50,7 +51,27 @@ Person& Person::operator=(const Person& other) {
     }
     return *this;
 }
+/*
+Person& Person::operator=(const Person& other) {
+    if (this != &other) {
+        char* newName = nullptr;
 
+        if (other.name) {
+            newName = new char[strlen(other.name) + 1];
+            strcpy(newName, other.name);
+        } else {
+            newName = new char[1];
+            newName[0] = '\0';
+        }
+        
+        delete[] name;
+        name = newName;
+
+        age = other.age;
+    }
+    return *this;
+}
+*/
 Person::~Person() {
     freeDynamic();
 }
@@ -65,7 +86,17 @@ void Person::setName(const char* n) {
     name = new char[std::strlen(n) + 1];
     std::strcpy(name, n);
 }
+/*
+void Person::setName(const char* n) {
+    if (!n || strlen(n) == 0) return;
 
+    char* newName = new char[strlen(n) + 1];
+    strcpy(newName, n);
+
+    delete[] name;
+    name = newName;
+}
+*/
 void Person::setAge(int a) {
     if (a >= 0) {
         age = a;
