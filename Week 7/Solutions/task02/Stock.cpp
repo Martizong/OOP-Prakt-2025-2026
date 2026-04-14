@@ -76,7 +76,7 @@ Stock& Stock::operator=(const Stock& other) {
         char* newAbbr = nullptr;
         char* newName = nullptr;
 
-        // копиране на abbreviation
+        
         if (other.abbreviation) {
             newAbbr = new char[strlen(other.abbreviation) + 1];
             strcpy(newAbbr, other.abbreviation);
