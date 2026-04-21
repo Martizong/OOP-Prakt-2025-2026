@@ -31,9 +31,6 @@ int main() {
     catch (const std::bad_alloc& e) {
         std::cout << "Memory allocation failed: " << e.what() << std::endl;
     }
-
-    std::cout << "\n--- second test ---\n";
-
     try {
         
         MyString s3(nullptr);
