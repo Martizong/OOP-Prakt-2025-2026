@@ -1,7 +1,7 @@
 #pragma once
+#include <fstream>
 #include <cstring>
 #include <stdexcept>
-#include <fstream>
 
 class Computer {
 private:
