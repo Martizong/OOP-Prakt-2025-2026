@@ -11,8 +11,8 @@ private:
     size_t capacity;
 
     void freeDynamic();
-    void copyDynamic(const char* source, size_t newSize);
-    void resize(size_t newCap);
+    char* copyDynamic(const char* source, size_t capacity);
+    void resize(size_t newCapacity);
 
 public:
     MyString();
@@ -26,6 +26,7 @@ public:
     char front() const;
     char back() const;
     const char* str() const;
+
     size_t length() const;
     size_t getCapacity() const;
     bool empty() const;
