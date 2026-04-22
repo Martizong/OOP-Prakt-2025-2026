@@ -166,3 +166,85 @@ std::ostream& operator<<(std::ostream& os, const ComplexNumber& complex)
 
 
 ## Приятелски функции и приятелски класове
+
+Декларират се със запазената дума friend пред прототипа на функцията.
+
+Даденият friend-клас/функция има достъп до всички компоненти на класа. Т.е. всички членове на класа са public за friend-класовете/функциите приятели.
+
+Приятелски класове/функции:
+
+- Не се наследяват
+- Не са транзитивни (приятелски клас на ваш приятелски клас, не е приятелски клас на вас)
+- Може да се напишат в private, protected, public частта на class-a (Добрата практика е само в public)
+
+## Приятелски функции (пример)
+
+  Пример 1:
+
+```c++
+class ComplexNumber
+{
+private:
+    double real;
+    double im;
+
+public:
+	friend std::ostream& operator<<(std::ostream& os, const ComplexNumber& complex);
+    // ...
+}
+
+std::ostream& operator<<(std::ostream& os, const ComplexNumber& complex) 
+{
+	return os << complex.real << " + i" << complex.im;
+}
+```
+ Пример 2:
+ 
+```c++
+class Complex
+{
+
+private:
+   double real;
+   double im;
+public:
+   friend double getModulos(const Complex& other);
+   .
+   .
+   .
+}
+double getModulos(const Complex& other)
+{
+	return sqrt((other.real * other.real) + (other.im *other.im));
+}
+```
+
+ Пример 3:
+ 
+```c++
+class Complex {
+private:
+   double real;
+   double im;
+public:
+   friend complex operator*(const Complex&, double);
+   friend complex operator*(double, const Complex&);
+   .
+   .
+   .
+}
+Complex operator*(const Complex& obj, double scalar) {
+   complex temp(obj);
+   temp.real *= scalar;
+   temp.im *= scalar;
+  
+   return temp;
+}
+//since the multiplication is commutative we can use the previous function in the definition of the next one
+Complex operator*(double scalar, const Complex& obj) {
+   return (obj * scalar);
+}
+
+
+```
+  
