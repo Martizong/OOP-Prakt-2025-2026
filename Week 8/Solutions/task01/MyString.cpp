@@ -62,7 +62,7 @@ MyString& MyString::operator=(const MyString& other) {
     if (this != &other) {
         char* newData = copyDynamic(other.data, other.capacity);
 
-        delete[] data;   // commit
+        delete[] data;   
         data = newData;
         size = other.size;
         capacity = other.capacity;
