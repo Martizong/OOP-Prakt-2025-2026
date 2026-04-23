@@ -1,5 +1,5 @@
 #pragma once
-#include "Product.h"
+#include "Product.h" //от задача 1
 
 class Shop {
 private:
