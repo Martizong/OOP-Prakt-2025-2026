@@ -1,53 +1,24 @@
 #pragma once
-#include "ShopType.h"
-#include <cstring>
-#include <stdexcept>
-#include <iostream>
-
-enum class ShopType {
-    Food,
-    Drink,
-    NonFood
-};
+#include "Product.h"
 
 class Shop {
 private:
-    char* name;
-    ShopType type;
-    int weight;
-    int quantity;
-    double price;
-
-    static int totalProducts;
-    static int totalQuantity;
+    Product* products;
+    int size;
+    int capacity;
 
     void freeDynamic();
     void copyDynamic(const Shop& other);
+    void resize();
 
 public:
-    Shop(const char* n, ShopType t, int w, int q, double p);
+    Shop();
     Shop(const Shop& other);
     Shop& operator=(const Shop& other);
     ~Shop();
 
-    const char* getName() const;
-    ShopType getType() const;
-    int getWeight() const;
-    int getQuantity() const;
-    double getPrice() const;
+    void loadProducts(const char* name, ProductType type, double weight, int quantity, double price);
+    bool sellProduct(const char* name, int amount);
 
-    void setName(const char* n);
-    void setType(ShopType t);
-    void setWeight(int w);
-    void setQuantity(int q);
-    void setPrice(double p);
-
-    void printInfo() const;
-    void printInventory() const; 
-
-    void loadProducts(int newQuantity);
-    bool sellProduct(int amount);
-
-    static int getTotalProducts();
-    static int getTotalQuantity();
+    void printInventory() const;
 };
